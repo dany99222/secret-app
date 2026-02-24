@@ -1,5 +1,25 @@
-node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
-cd secrets-app
-npm install better-auth zod zustand react-toastify react-hook-form @hookform/resolvers dotenv
-npm install -D prisma@6
-npm install @prisma/client@6
+Instalacion de dependencias
+    npm install 
+    better-auth 
+    zod 
+    zustand 
+    react-toastify 
+    react-hook-form 
+    @hookform/resolvers 
+    dotenv
+
+    BETTER_AUTH_SECRET creacion aleatorio
+    node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+
+    Isntalamos prisma
+        npm install -D prisma@6 (se implementa para desarrollo solamente)
+        npm install @prisma/client@6 (se aplica en run time)
+
+        inicializamos prisma
+            npx prisma init 
+        creamos los modelos 
+        generamos las tablas en neon console
+            npx prisma db push
+
+
+
