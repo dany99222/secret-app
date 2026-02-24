@@ -1,0 +1,5 @@
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+cd secrets-app
+npm install better-auth zod zustand react-toastify react-hook-form @hookform/resolvers dotenv
+npm install -D prisma@6
+npm install @prisma/client@6
