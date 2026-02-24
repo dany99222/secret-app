@@ -5,9 +5,4 @@ export const authClient = createAuthClient({
 });
 
 // Exportamos lo que vamos a usar en los componentes
-export const {
-  signIn,
-  signUp,
-  signOut,
-  useSession,
-} = authClient;
+export const { signIn, signUp, signOut, useSession } = authClient;
