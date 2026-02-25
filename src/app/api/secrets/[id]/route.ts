@@ -7,7 +7,7 @@ import { headers } from "next/headers";
 // PATCH - Editar secreto
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await auth.api.getSession({
@@ -15,7 +15,10 @@ export async function PATCH(
     });
 
     if (!session) {
-      return NextResponse.json({ success: false, error: "No autorizado" }, { status: 401 });
+      return NextResponse.json(
+        { success: false, error: "No autorizado" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
@@ -23,7 +26,10 @@ export async function PATCH(
     const parsed = updateSecretSchema.safeParse({ ...body, id });
 
     if (!parsed.success) {
-      return NextResponse.json({ success: false, error: parsed.error.flatten() }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: parsed.error.flatten() },
+        { status: 400 },
+      );
     }
 
     // Verificar que el secreto pertenece al usuario
@@ -32,10 +38,13 @@ export async function PATCH(
     });
 
     if (!existing) {
-      return NextResponse.json({ success: false, error: "Secreto no encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, error: "Secreto no encontrado" },
+        { status: 404 },
+      );
     }
-
-    const { id: _, ...data } = parsed.data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id: _id, ...data } = parsed.data;
 
     const secret = await prisma.secret.update({
       where: { id },
@@ -43,15 +52,18 @@ export async function PATCH(
     });
 
     return NextResponse.json({ success: true, data: secret });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Error del servidor" }, { status: 500 });
+  } catch {
+    return NextResponse.json(
+      { success: false, error: "Error del servidor" },
+      { status: 500 },
+    );
   }
 }
 
 // DELETE - Eliminar secreto
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await auth.api.getSession({
@@ -59,7 +71,10 @@ export async function DELETE(
     });
 
     if (!session) {
-      return NextResponse.json({ success: false, error: "No autorizado" }, { status: 401 });
+      return NextResponse.json(
+        { success: false, error: "No autorizado" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
@@ -70,13 +85,19 @@ export async function DELETE(
     });
 
     if (!existing) {
-      return NextResponse.json({ success: false, error: "Secreto no encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, error: "Secreto no encontrado" },
+        { status: 404 },
+      );
     }
 
     await prisma.secret.delete({ where: { id } });
 
     return NextResponse.json({ success: true, data: null });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: "Error del servidor" }, { status: 500 });
+  } catch {
+    return NextResponse.json(
+      { success: false, error: "Error del servidor" },
+      { status: 500 },
+    );
   }
 }

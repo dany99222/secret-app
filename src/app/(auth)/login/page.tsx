@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn, signUp } from "@/lib/auth-client";
-import { signInSchema, signUpSchema, SignInSchema, SignUpSchema } from "@/lib/validations/auth";
+import { signIn } from "@/lib/auth-client";
+import { signInSchema, SignInSchema } from "@/lib/validations/auth";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

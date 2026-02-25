@@ -45,7 +45,7 @@ export function useSecrets() {
     } finally {
       setIsLoading(false);
     }
-  }, [filters, pagination.page, pagination.perPage]);
+  }, [filters, pagination.page, pagination.perPage, setSecrets, setPagination, setIsLoading]);
 
   const createSecret = async (data: CreateSecretSchema) => {
     try {
